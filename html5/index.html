@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript">
+			var gameCanvas;
+			var context;
+			var backgroundImage;
+			var backgroundImageX=0;
+			var carImage;
+			var carImageX=0;
+			var index=0;
+			function draw(){
+				backgroundImageX=backgroundImageX-20;
+				if(backgroundImageX<-400){
+					backgroundImageX=0;
+				}
+				context.drawImage(backgroundImage,backgroundImageX,0);
+				console.log("backgroundX"+backgroundImageX);
+				
+				carImageX=carImageX+20;
+				if(carImageX>400){
+					carImageX=0;
+				}
+				index++;
+				if(index%2==0){
+					context.drawImage(carImage,carImageX,480);
+					context.drawImage(carImage,carImageX*0+200,499);
+				}else{
+				context.drawImage(carImage,carImageX,500);
+				context.drawImage(carImage,carImageX*0+200,485);
+				}
+			}
+			//网页加载完执行
+			function load(){
+			gameCanvas=document.getElementById("gameCanvas");
+			context=gameCanvas.getContext("2d");
+			backgroundImage=new Image();
+			backgroundImage.src="img/background.jpg";
+			
+			//图片加载完后执行
+			backgroundImage.onload=function(){
+				//每隔一秒执行一次draw
+				setInterval(draw,1000);
+				
+			};
+			carImage=new Image();
+			carImage.src="img/car.png"
+			
+			}
+			//事件注册
+			window.onload=load;
+			
+		</script>	
+	</head>
+	
+	<body >	
+		<canvas id="gameCanvas" width="400" height="600">		
+		</canvas>
+		<canvas id="gameCanvas2" width="400" height="600">
+				$(function(){
+					var data = [
+					        	{name : 'IE',value : 35.75,color:'#bc6666'},
+					        	{name : 'Chrome',value : 29.84,color:'#cbab4f'},
+					        	{name : 'Firefox',value : 24.88,color:'#76a871'},
+					        	{name : 'Safari',value : 6.77,color:'#9f7961'},
+					        	{name : 'Opera',value : 2.02,color:'#2ba5a4'},
+					        	{name : 'Other',value : 0.73,color:'#6f83a5'}
+				        	];
+		        	
+					new iChart.Column3D({
+						render : 'canvasDiv',
+						data: data,
+						title : 'Top 5 Browsers from 1 to 29 Feb 2012',
+						width : 800,
+						height : 400,
+						align:'left',
+						offsetx:50,
+						legend : {
+							enable : true
+						},
+						sub_option:{
+							label:{
+								color:'#111111'
+							}
+						},
+						coordinate:{
+							width:600,
+							scale:[{
+								 position:'left',	
+								 start_scale:0,
+								 end_scale:40,
+								 scale_space:8,
+								 listeners:{
+									parseText:function(t,x,y){
+										return {text:t+"%"}
+									}
+								}
+							}]
+						}
+					}).draw();
+			});
+				
+			
+
+		</canvas>
+		
+	</body>
+</html>
